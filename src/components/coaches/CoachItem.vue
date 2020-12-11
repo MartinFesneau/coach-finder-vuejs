@@ -4,7 +4,7 @@
       <h3 class="text-lg text-center font-semibold">{{ fullName }}</h3>
       <h4 class="text-sm font-bold text-center">${{ rate }}/hour</h4>
       <div class="mt-2 pt-3 flex flex-wrap mx-6 border-t justify-center">
-        <base-badge v-for="area in areas" :key="area" :title="area" :type="area"></base-badge>
+        <base-badge v-for="area in areas" :key="area" :title="area" :type="`${area}-full`"></base-badge>
       </div>
       <div class="action flex justify-center py-2">
         <base-button :mode="'flat'" link :to="coachContactLink">Contact</base-button>

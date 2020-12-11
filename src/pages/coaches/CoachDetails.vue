@@ -55,8 +55,5 @@ export default {
 </script>
 
 <style>
-.coucou {
-  margin: 0 auto;
-}
 
 </style>

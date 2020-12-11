@@ -6,7 +6,7 @@
     <base-card>
       <div class="controls">
         <base-button>Refresh</base-button>
-        <base-button link to="/register">Register as coach</base-button>
+        <base-button link to="/register" v-if="!isCoach">Register as coach</base-button>
       </div>
       <ul v-if="hasCoaches">
         <coach-item
@@ -46,7 +46,7 @@ export default {
     filteredCoaches() {
       const coaches = this.$store.getters['coaches/coaches'];
       return coaches.filter((coach) => {
-        if (this.activeFilters.frontend && coach.areas.includes('frontend')) {// est ce que le filtre front end est true
+        if (this.activeFilters.frontend && coach.areas.includes('frontend')) {
           return true;
         }
         if (this.activeFilters.backend && coach.areas.includes('backend')) {
@@ -55,11 +55,15 @@ export default {
         if (this.activeFilters.career && coach.areas.includes('career')) {
           return true;
         }
-      })
+        return false;
+      });
     },
     hasCoaches() {
       return this.$store.getters['coaches/hasCoaches'];
-    }
+    },
+    isCoach() {
+      return this.$store.getters['coaches/isCoach'];
+    },
   },
   methods: {
     setFilters(updatedFilters) { // updated filters est récupéré via l'emit de CoachFilter
