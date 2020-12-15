@@ -1,5 +1,5 @@
 <template>
-  <li class="bg-white border-gray-50 my-12 pb-6 w-auto justify-center items-center overflow-hidden md:max-w-sm rounded-lg mx-auto shadow-lg">
+  <li class="bg-white border border-gray-100 my-12 pb-6 w-auto justify-center items-center overflow-hidden md:max-w-sm rounded-lg mx-auto shadow-lg">
     <div class="mt-8">
       <h3 class="text-lg text-center font-semibold">{{ fullName }}</h3>
       <h4 class="text-sm font-bold text-center">${{ rate }}/hour</h4>

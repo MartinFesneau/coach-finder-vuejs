@@ -1,3 +1,5 @@
+import { onErrorCaptured } from "vue";
+
 export default {
   async addACoach(context, payload) {
     const userId = context.rootGetters.userId
@@ -30,7 +32,8 @@ export default {
     const responseData = await response.json();
 
     if (!response.ok) {
-      // error
+      const error = new onErrorCaptured(response.data.message || 'Failed to fetch');
+      throw error;
     }
 
     const coaches = [];
