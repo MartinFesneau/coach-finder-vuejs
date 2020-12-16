@@ -9,5 +9,13 @@ export default {
     const coaches = getters.coaches;
     const userId = rootGetters.userId;
     return coaches.some(coach => coach.id === userId);
+  },
+  shoudlUpdate(state) {
+    const lastFetch = state.lastFetch;
+    if (!lastFetch) { // if no timeStamp we should update
+      return true
+    }
+    const currentTimeStamp = new Date().getTime();
+    return (currentTimeStamp - lastFetch) / 1000 > 60; // will return true if last fetch was more than one minute ago
   }
 };
