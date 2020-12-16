@@ -1,35 +1,37 @@
 <template>
-<base-dialog :show="!!error" @close="handleError" >
-  <p>{{ error }}</p>
-</base-dialog>
-  <section>
-    <coach-filter @change-filter="setFilters"></coach-filter>
-  </section>
-  <section>
-    <base-card>
-      <div class="controls">
-        <base-button @click="loadCoaches(true)">Refresh</base-button>
-        <base-button link to="/register" v-if="!isCoach && !isLoading"
-          >Register as coach</base-button
-        >
-      </div>
-      <div v-if="isLoading">
-        <base-spinner></base-spinner>
-      </div>
-      <ul v-else-if="hasCoaches">
-        <coach-item
-          v-for="coach in filteredCoaches"
-          :key="coach.id"
-          :id="coach.id"
-          :first-name="coach.firstName"
-          :last-name="coach.lastName"
-          :rate="coach.hourlyRate"
-          :areas="coach.areas"
-        ></coach-item>
-      </ul>
-      <h3 v-else>No coaches found</h3>
-    </base-card>
-  </section>
+  <div>
+    <base-dialog :show="!!error" @close="handleError">
+      <p>{{ error }}</p>
+    </base-dialog>
+    <section>
+      <coach-filter @change-filter="setFilters"></coach-filter>
+    </section>
+    <section>
+      <base-card>
+        <div class="controls">
+          <base-button @click="loadCoaches(true)">Refresh</base-button>
+          <base-button link to="/register" v-if="!isCoach && !isLoading"
+            >Register as coach</base-button
+          >
+        </div>
+        <div v-if="isLoading">
+          <base-spinner></base-spinner>
+        </div>
+        <ul v-else-if="hasCoaches">
+          <coach-item
+            v-for="coach in filteredCoaches"
+            :key="coach.id"
+            :id="coach.id"
+            :first-name="coach.firstName"
+            :last-name="coach.lastName"
+            :rate="coach.hourlyRate"
+            :areas="coach.areas"
+          ></coach-item>
+        </ul>
+        <h3 v-else>No coaches found</h3>
+      </base-card>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -83,15 +85,17 @@ export default {
     async loadCoaches(refresh = false) {
       this.isLoading = true;
       try {
-        await this.$store.dispatch('coaches/loadCoaches', { forceRefresh: refresh }); // if loadcoaches is called from created the refresh argument will be false by default, when clicking the button we pass a true argument so forceRefresh will be truee
+        await this.$store.dispatch('coaches/loadCoaches', {
+          forceRefresh: refresh
+        }); // if loadcoaches is called from created the refresh argument will be false by default, when clicking the button we pass a true argument so forceRefresh will be true
       } catch (error) {
-        this.error = error.message || 'Something went wrong'
+        this.error = error.message || 'Something went wrong';
       }
       this.isLoading = false;
     },
     handleError() {
-    this.error = null;
-    },
+      this.error = null;
+    }
   },
   created() {
     this.loadCoaches();

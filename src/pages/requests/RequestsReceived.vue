@@ -1,24 +1,26 @@
 <template>
-<base-dialog :show="!!error" @close="handleError" >
-  <p>{{ error }}</p>
-</base-dialog>
-  <section>
-    <base-card>
-      <header>
-        <h2 class="h2">Request received</h2>
-      </header>
-      <base-spinner v-if="isLoading"></base-spinner>
-      <ul v-else-if="hasRequests && !isLoading">
-        <request-item
-          v-for="request in receivedRequests"
-          :key="request.id"
-          :email="request.userEmail"
-          :message="request.userMessage"
-        ></request-item>
-      </ul>
-      <h3 v-else class="h3">You haven't received any request yet!</h3>
-    </base-card>
-  </section>
+  <div>
+    <base-dialog :show="!!error" @close="handleError">
+      <p>{{ error }}</p>
+    </base-dialog>
+    <section>
+      <base-card>
+        <header>
+          <h2 class="h2">Request received</h2>
+        </header>
+        <base-spinner v-if="isLoading"></base-spinner>
+        <ul v-else-if="hasRequests && !isLoading">
+          <request-item
+            v-for="request in receivedRequests"
+            :key="request.id"
+            :email="request.userEmail"
+            :message="request.userMessage"
+          ></request-item>
+        </ul>
+        <h3 v-else class="h3">You haven't received any request yet!</h3>
+      </base-card>
+    </section>
+  </div>
 </template>
 
 <script>
@@ -48,15 +50,15 @@ export default {
     async loadRequests() {
       this.isLoading = true;
       try {
-        await this.$store.dispatch('requests/loadRequests');
+        await this.$store.dispatch('requests/fetchRequests');
       } catch (error) {
         this.error = error.message || 'Something went wrong';
       }
       this.isLoading = false;
     },
     handleError() {
-    this.error = null;
-    },
+      this.error = null;
+    }
   }
 };
 </script>

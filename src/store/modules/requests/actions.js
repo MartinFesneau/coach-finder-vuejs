@@ -13,8 +13,6 @@ export default {
     );
     const responseData = await response.json();
 
-    console.log(responseData);
-
     if (!response.ok) {
       const error = new Error(
         response.data.message || 'Failed to send request'
@@ -33,7 +31,7 @@ export default {
       `https://vue-coach-finder-app-default-rtdb.europe-west1.firebasedatabase.app/requests/${coachId}.json`
     );
     const responseData = await response.json();
-
+      console.log(responseData)
     if (!response.ok) {
       const error = new Error(
         response.data.message || 'Failed to load requests'
@@ -47,7 +45,7 @@ export default {
         id: key,
         coachId: coachId,
         userEmail: responseData[key].userEmail,
-        message: responseData[key].userMessage
+        userMessage: responseData[key].userMessage
       };
       requests.push(request);
     }
