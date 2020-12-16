@@ -19,7 +19,8 @@ export default {
     // const responseData = await response.json();
 
     if (!response.ok) {
-      // error
+      const error = new onErrorCaptured(response.data.message || 'Failed to create coach');
+      throw error;
     }
 
     context.commit('registerCoach', {

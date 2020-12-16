@@ -10,7 +10,7 @@ export default {
     const userId = rootGetters.userId;
     return coaches.some(coach => coach.id === userId);
   },
-  shoudlUpdate(state) {
+  shouldUpdate(state) {
     const lastFetch = state.lastFetch;
     if (!lastFetch) { // if no timeStamp we should update
       return true
